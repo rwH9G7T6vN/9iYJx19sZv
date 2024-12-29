@@ -3,7 +3,7 @@ let v = "5.1.5", t_servers = 7, version_hash = versionHash, username, existedCod
     colors = [0x1EA761, 0xD4C6A5, 0x5785BA, 0x3AA049, 0x8E603F, 0x8F3838, 0x666633],
     rolePing = {
         Update: "<@&1197952578634395728>",
-        Super: "<@&1197849443135913984>",
+        Super: "<@&1322880389857153036>",
         Unique: "<@&1229868858504908982>",
         Craft: "<@&1197869192767078532>",
     },
