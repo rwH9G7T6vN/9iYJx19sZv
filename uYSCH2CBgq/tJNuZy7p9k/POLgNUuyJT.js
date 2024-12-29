@@ -2,10 +2,10 @@ let v = "5.1.5", t_servers = 7, version_hash = versionHash, username, existedCod
     matrixs = ["Garden", "Desert", "Ocean", "Jungle", "Ant Hell", "Hel", "Sewers"],
     colors = [0x1EA761, 0xD4C6A5, 0x5785BA, 0x3AA049, 0x8E603F, 0x8F3838, 0x666633],
     rolePing = {
-        Update: "<@&1197952578634395728>",
+        Update: "<@&1322880529476878437>",
         Super: "<@&1322880389857153036>",
-        Unique: "<@&1229868858504908982>",
-        Craft: "<@&1197869192767078532>",
+        Unique: "<@&1322880475999637504>",
+        Craft: "<@&1322880505334730795>",
     },
     uniqueSpawnMsg = {
         "Cactus": "A tower of thorns rises from the sands...",
