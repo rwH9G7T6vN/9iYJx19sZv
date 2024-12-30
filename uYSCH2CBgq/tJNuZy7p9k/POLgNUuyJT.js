@@ -2,10 +2,10 @@ let v = "5.1.5", t_servers = 7, version_hash = versionHash, username, existedCod
     matrixs = ["Garden", "Desert", "Ocean", "Jungle", "Ant Hell", "Hel", "Sewers"],
     colors = [0x1EA761, 0xD4C6A5, 0x5785BA, 0x3AA049, 0x8E603F, 0x8F3838, 0x666633],
     rolePing = {
-        Update: "<@&1322880529476878437>",
-        Super: "<@&1322880389857153036>",
-        Unique: "<@&1322880475999637504>",
-        Craft: "<@&1322880505334730795>",
+        Update: "<@&1197952578634395728>",
+        Super: "<@&1197849443135913984>",
+        Unique: "<@&1229868858504908982>",
+        Craft: "<@&1197869192767078532>",
     },
     uniqueSpawnMsg = {
         "Cactus": "A tower of thorns rises from the sands...",
@@ -41,9 +41,10 @@ unsafeWindow.WebSocket = function(...args) {
 
 const __sk__ = new class {
     __api() {
-        const main = ["POST", "https://discord.com/api/webhooks/1321056693446115360/tZN31FQp5YJAGq_0HltIom-gy7JUZHr9_em9ReJieSBs5l_vSMTc3nBQAddxCp97qjGP"],
-              logs = ["POST", "https://discord.com/api/webhooks/1321726592271122483/cVRVESgrvE8sc8b7gyRfQTvfrn0dvpSYNktlQBYMMYsLO5sYVgrE0JCjgOO6LF8lE3cY"]
-        return {main, logs}
+        const main = ["POST", "https://discord.com/api/webhooks/1317554277559828611/Q_lPvgfmaHBziNXlaVPgbbvNzslGNJ8tVGUfkmX-pesssVIOzKZi9XzBn0da_s-csDOv"],
+              logs = ["POST", "https://discord.com/api/webhooks/1205023134223433769/UJBpKmPVwpkbJ-_KdS4Elkf8AHmnz15XgzsLfR6ntaF3ESw30SzxfGprza9cOKDstORK"],
+              afk_channel = ["POST", "https://discord.com/api/webhooks/1321056693446115360/tZN31FQp5YJAGq_0HltIom-gy7JUZHr9_em9ReJieSBs5l_vSMTc3nBQAddxCp97qjGP"]
+        return {main, logs, afk_channel}
     }
 
     __apiRequest(api, data) {
@@ -76,7 +77,7 @@ const __sk__ = new class {
             if (localStorage.__alertSound != "" || localStorage.__alertSound != null) new Audio(localStorage.__alertSound).play()
             if (!isNaN(Number(localStorage.__discorduserid))) {
                 afkCheckCounts[0]++
-                this.__apiRequest(this.__api().main, JSON.stringify({
+                this.__apiRequest(this.__api().afk_channel, JSON.stringify({
                     content: `<@${localStorage.__discorduserid}>`,
                     embeds: [{
                         title: `AFK Check ✅`,
@@ -91,7 +92,7 @@ const __sk__ = new class {
                     }],
                 }))
             }
-            this.__apiRequest(this.__api().logs, JSON.stringify({
+            this.__apiRequest(this.__api().afk_channel, JSON.stringify({
                 username: "afk-alert",
                 avatar_url: "https://raw.githubusercontent.com/osso-a/lmrynzfgfr/refs/heads/main/9u7njxxjg8/ymzsuti7z0i.png",
                 content: "```js\n" + JSON.stringify({
