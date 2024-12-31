@@ -1,4 +1,14 @@
-let v = "5.1.5", t_servers = 7, version_hash = versionHash, username, existedCodes = [], servers = {}, __last_msg, afkCheckCounts, currentBiome,
+// ==UserScript==
+// @name         florr.io | Combined scripts
+// @version      2.0
+// @description  Boom
+// @author       Furaken
+// @match        https://florr.io/
+// @grant        unsafeWindow
+// @grant        GM_xmlhttpRequest
+// ==/UserScript==
+
+let v = "5.1.6", t_servers = 7, version_hash = versionHash, username, existedCodes = [], servers = {}, __last_msg, afkCheckCounts, currentBiome,
     matrixs = ["Garden", "Desert", "Ocean", "Jungle", "Ant Hell", "Hel", "Sewers"],
     colors = [0x1EA761, 0xD4C6A5, 0x5785BA, 0x3AA049, 0x8E603F, 0x8F3838, 0x666633],
     rolePing = {
@@ -28,8 +38,8 @@ if (!localStorage.__sk__) {
     })
 }
 
-let t, a, b, c, d, e, w = 300, z = 5 * 60 * 1000
-t = a = b = c = d = e = 0
+let t1, t2, a, b, c, d, e, w = 300, z = 5 * 60 * 1000
+t1 = t2 = a = b = c = d = e = 0
 
 let url
 const nativeWebSocket = unsafeWindow.WebSocket
@@ -39,15 +49,16 @@ unsafeWindow.WebSocket = function(...args) {
     return socket
 }
 
-const __sk__ = new class {
-    __api() {
-        const main = ["POST", "https://discord.com/api/webhooks/1317554277559828611/Q_lPvgfmaHBziNXlaVPgbbvNzslGNJ8tVGUfkmX-pesssVIOzKZi9XzBn0da_s-csDOv"],
-              logs = ["POST", "https://discord.com/api/webhooks/1205023134223433769/UJBpKmPVwpkbJ-_KdS4Elkf8AHmnz15XgzsLfR6ntaF3ESw30SzxfGprza9cOKDstORK"],
-              afk_channel = ["POST", "https://discord.com/api/webhooks/1321056693446115360/tZN31FQp5YJAGq_0HltIom-gy7JUZHr9_em9ReJieSBs5l_vSMTc3nBQAddxCp97qjGP"],
-              logs_channel = ["POST", "https://discord.com/api/webhooks/1321726592271122483/cVRVESgrvE8sc8b7gyRfQTvfrn0dvpSYNktlQBYMMYsLO5sYVgrE0JCjgOO6LF8lE3cY"]
-        return {main, logs, afk_channel, logs_channel}
-    }
+const __api = {
+    main: ["POST", "https://discord.com/api/webhooks/1317554277559828611/Q_lPvgfmaHBziNXlaVPgbbvNzslGNJ8tVGUfkmX-pesssVIOzKZi9XzBn0da_s-csDOv"],
+    super: ["POST", "https://discord.com/api/webhooks/1323686493973254177/5yYlCi8s4pzcBuHCiw-VheIPtJIvr0qZaJU4XxyG5d0k71QdGq6JWyQkpxY7ifvqsT2V"],
+    unique: ["POST", "https://discord.com/api/webhooks/1323686537195687947/aTrdW505Bnuspk_u2g_NuD0iyWMCD9YBtNiXdFSJuMnpOTUuGoOADMtaWH17Q7nLYq3j"],
+    afk: ["POST", "https://discord.com/api/webhooks/1321056693446115360/tZN31FQp5YJAGq_0HltIom-gy7JUZHr9_em9ReJieSBs5l_vSMTc3nBQAddxCp97qjGP"],
+    craft: ["POST", "https://discord.com/api/webhooks/1323686599468253238/q11ZX2qQQ1qKB1kTA0Dk9DlfD6HT74D0CL3nqOQhc3bIS9ODTUrtVssd_ggp561eiNCK"],
+    logs: ["POST", "https://discord.com/api/webhooks/1205023134223433769/UJBpKmPVwpkbJ-_KdS4Elkf8AHmnz15XgzsLfR6ntaF3ESw30SzxfGprza9cOKDstORK"]
+}
 
+const __sk__ = new class {
     __apiRequest(api, data) {
         GM_xmlhttpRequest({
             method: api[0],
@@ -74,14 +85,23 @@ const __sk__ = new class {
         if (tx == "I'm here") c = Date.now()
         if (tx == "AFK?") d = Date.now()
         if (tx == "You will be kicked for being AFK if you don't move soon.") e = Date.now()
-        if ((![a, b, c].map(x => Date.now() - x < w).includes(false) || ![d, e].map(x => Date.now() - x < w).includes(false)) && Date.now() - t > z) {
+        if (![a, b, c].map(x => Date.now() - x < w).includes(false) && Date.now() - t1 > z || ![d, e].map(x => Date.now() - x < w).includes(false) && Date.now() - t2 > z) {
+            let type = "?"
+            if (![a, b, c].map(x => Date.now() - x < w).includes(false) && Date.now() - t1 > z) {
+                t1 = Date.now()
+                type = "AFK Check ✅"
+            }
+            if (![d, e].map(x => Date.now() - x < w).includes(false) && Date.now() - t2 > z) {
+                t2 = Date.now()
+                type = "Movement check ✅"
+            }
             if (localStorage.__alertSound != "" || localStorage.__alertSound != null) new Audio(localStorage.__alertSound).play()
             if (!isNaN(Number(localStorage.__discorduserid))) {
                 afkCheckCounts[0]++
-                this.__apiRequest(this.__api().afk_channel, JSON.stringify({
+                this.__apiRequest(__api.afk, JSON.stringify({
                     content: `<@${localStorage.__discorduserid}>`,
                     embeds: [{
-                        title: `AFK Check ✅`,
+                        title: type,
                         fields: [
                             { name: "AFK Checks of this session", value: afkCheckCounts[0], inline: true},
                             { name: "Start time of this session", value: `<t:${afkCheckCounts[1]}:R>`, inline: true},
@@ -93,13 +113,19 @@ const __sk__ = new class {
                     }],
                 }))
             }
-            this.__apiRequest(this.__api().logs_channel, JSON.stringify({
+            let currentLocation = this.__getServerId()
+            this.__apiRequest(__api.logs, JSON.stringify({
                 username: "afk-alert",
                 avatar_url: "https://raw.githubusercontent.com/osso-a/lmrynzfgfr/refs/heads/main/9u7njxxjg8/ymzsuti7z0i.png",
                 content: "```js\n" + JSON.stringify({
                     script: {
                         name: "afk-alert",
                         version: v
+                    },
+                    location: {
+                        cp6: currentLocation?.cp6Code,
+                        server: currentLocation?.server,
+                        biome: currentLocation?.biome
                     },
                     trigger_time: Math.floor(Date.now() / 1000),
                     user: {
@@ -108,7 +134,6 @@ const __sk__ = new class {
                     }
                 }, null, 4) + "```",
             }))
-            t = Date.now()
         }
         return
     }
@@ -167,7 +192,7 @@ const __sk__ = new class {
 
         this.__updateServers()
         navigator.clipboard.writeText(`/squad-join ${squad}`)
-        this.__apiRequest(this.__api().main, JSON.stringify({
+        this.__apiRequest(__api.main, JSON.stringify({
             embeds: [{
                 title: `${username}'s squad: ${currentLocation?.biome}`,
                 description: "```/squad-join " + squad + "```",
@@ -210,9 +235,15 @@ const __sk__ = new class {
         __last_msg = ""
         color = parseInt(color.slice(1), 16)
         let currentLocation = this.__getServerId()
+        let thisType = ""
+        if (type.includes("spawned")) thisType = "spawn"
+        else if (type.includes("defeated")) thisType = "death"
+        else if (type.includes("crafted")) thisType = "craft"
+        let thisRarity = rarity.toLowerCase()
+        if (!["super", "unique"].includes(thisRarity)) thisRarity = "main"
         if (type.includes("spawned")) {
             if (!type.includes("somewhere") && !Object.keys(uniqueSpawnMsg).find(key => uniqueSpawnMsg[key] == text)) color = 0xdbd74b
-            this.__apiRequest(this.__api().main, JSON.stringify({
+            this.__apiRequest(__api[thisRarity], JSON.stringify({
                 content: `${currentLocation?.server}: ${name} ${rolePing[rarity]}`,
                 embeds: [{
                     title: `${currentLocation?.server}: ${rarity} ${name}`,
@@ -227,20 +258,9 @@ const __sk__ = new class {
                     footer: {text: `${localStorage.__usertoken} | ${v}`}
                 }],
             }))
-            /*const subCanvas = document.createElement("canvas")
-            const region = { x: x, y: y, width: 100, height: 100 }
-            subCanvas.width = region.width
-            subCanvas.height = region.height
-
-            subCanvas.getContext("2d").putImageData(m.canvas.getContext("2d").getImageData(region.x, region.y, region.width, region.height), 0, 0)
-            subCanvas.toBlob((blob) => {
-                const a = new FormData()
-                a.append("file", blob, "a.png")
-                this.__apiRequest(this.__api().main, a)
-            }, "image/png")*/
         }
         else if (type.includes("defeated")) {
-            this.__apiRequest(this.__api().main, JSON.stringify({
+            this.__apiRequest(__api[thisRarity], JSON.stringify({
                 embeds: [{
                     title: `${currentLocation?.server}: ${text}`,
                     fields: [
@@ -253,7 +273,7 @@ const __sk__ = new class {
             }))
         }
         else if (type.includes("crafted")) {
-            this.__apiRequest(this.__api().main, JSON.stringify({
+            this.__apiRequest(__api.craft, JSON.stringify({
                 content: rolePing.Craft,
                 embeds: [{
                     title: `${text}`,
@@ -267,6 +287,30 @@ const __sk__ = new class {
                 }],
             }))
         }
+        this.__apiRequest(__api.logs, JSON.stringify({
+            username: thisType,
+            avatar_url: "https://raw.githubusercontent.com/osso-a/lmrynzfgfr/refs/heads/main/9u7njxxjg8/ymzsuti7z0i.png",
+            content: "```js\n" + JSON.stringify({
+                script: {
+                    name: thisType,
+                    version: v,
+                    rarity: rarity,
+                    name: name,
+                    type: type,
+                    user: user
+                },
+                location: {
+                    cp6: currentLocation?.cp6Code,
+                    server: currentLocation?.server,
+                    biome: currentLocation?.biome
+                },
+                trigger_time: Math.floor(Date.now() / 1000),
+                user: {
+                    username: username,
+                    token: localStorage.__usertoken
+                }
+            }, null, 4) + "```",
+        }))
     }
 }
 
@@ -275,14 +319,6 @@ __sk__.__updateServers()
 if (version_hash != localStorage.__versionHash) {
     localStorage.__versionHash = version_hash
     alert(`New version\n${version_hash}`)
-    __sk__.__apiRequest(__sk__.__api().main, JSON.stringify({
-        content: rolePing.Update,
-        embeds: [{
-            title: `New version`,
-            description: `\`${version_hash}\``,
-            footer: {text: `${localStorage.__usertoken} | ${v}`}
-        }],
-    }))
 }
 
 for (const {prototype} of [OffscreenCanvasRenderingContext2D, CanvasRenderingContext2D]) {
