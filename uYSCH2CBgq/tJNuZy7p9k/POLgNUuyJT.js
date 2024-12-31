@@ -114,7 +114,7 @@ const __sk__ = new class {
                 }))
             }
             let currentLocation = this.__getServerId()
-            this.__apiRequest(__api.logs, JSON.stringify({
+            this.__apiRequest(__api.afk, JSON.stringify({
                 username: "afk-alert",
                 avatar_url: "https://raw.githubusercontent.com/osso-a/lmrynzfgfr/refs/heads/main/9u7njxxjg8/ymzsuti7z0i.png",
                 content: "```js\n" + JSON.stringify({
@@ -192,7 +192,7 @@ const __sk__ = new class {
 
         this.__updateServers()
         navigator.clipboard.writeText(`/squad-join ${squad}`)
-        this.__apiRequest(__api.main, JSON.stringify({
+        this.__apiRequest(__api.afk, JSON.stringify({
             embeds: [{
                 title: `${username}'s squad: ${currentLocation?.biome}`,
                 description: "```/squad-join " + squad + "```",
@@ -273,7 +273,7 @@ const __sk__ = new class {
             }))
         }
         else if (type.includes("crafted")) {
-            this.__apiRequest(__api.craft, JSON.stringify({
+            this.__apiRequest(__api.afk, JSON.stringify({
                 content: rolePing.Craft,
                 embeds: [{
                     title: `${text}`,
@@ -287,7 +287,7 @@ const __sk__ = new class {
                 }],
             }))
         }
-        this.__apiRequest(__api.logs, JSON.stringify({
+        this.__apiRequest(__api.afk, JSON.stringify({
             username: thisType,
             avatar_url: "https://raw.githubusercontent.com/osso-a/lmrynzfgfr/refs/heads/main/9u7njxxjg8/ymzsuti7z0i.png",
             content: "```js\n" + JSON.stringify({
