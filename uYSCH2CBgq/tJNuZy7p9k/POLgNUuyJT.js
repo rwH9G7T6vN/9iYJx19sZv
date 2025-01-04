@@ -38,13 +38,13 @@ GM_xmlhttpRequest({
             }
 
             const __api = {
-        main: ["POST", "https://discord.com/api/webhooks/1317554277559828611/Q_lPvgfmaHBziNXlaVPgbbvNzslGNJ8tVGUfkmX-pesssVIOzKZi9XzBn0da_s-csDOv"],
-        super: ["POST", "https://discord.com/api/webhooks/1323686493973254177/5yYlCi8s4pzcBuHCiw-VheIPtJIvr0qZaJU4XxyG5d0k71QdGq6JWyQkpxY7ifvqsT2V"],
-        unique: ["POST", "https://discord.com/api/webhooks/1323686537195687947/aTrdW505Bnuspk_u2g_NuD0iyWMCD9YBtNiXdFSJuMnpOTUuGoOADMtaWH17Q7nLYq3j"],
-        afk: ["POST", "https://discord.com/api/webhooks/1321056693446115360/tZN31FQp5YJAGq_0HltIom-gy7JUZHr9_em9ReJieSBs5l_vSMTc3nBQAddxCp97qjGP"],
-        craft: ["POST", "https://discord.com/api/webhooks/1323686599468253238/q11ZX2qQQ1qKB1kTA0Dk9DlfD6HT74D0CL3nqOQhc3bIS9ODTUrtVssd_ggp561eiNCK"],
-        logs: ["POST", "https://discord.com/api/webhooks/1321726592271122483/cVRVESgrvE8sc8b7gyRfQTvfrn0dvpSYNktlQBYMMYsLO5sYVgrE0JCjgOO6LF8lE3cY"]
-    }
+                main: ["POST", "https://discord.com/api/webhooks/1317554277559828611/Q_lPvgfmaHBziNXlaVPgbbvNzslGNJ8tVGUfkmX-pesssVIOzKZi9XzBn0da_s-csDOv"],
+                super: ["POST", "https://discord.com/api/webhooks/1323686493973254177/5yYlCi8s4pzcBuHCiw-VheIPtJIvr0qZaJU4XxyG5d0k71QdGq6JWyQkpxY7ifvqsT2V"],
+                unique: ["POST", "https://discord.com/api/webhooks/1323686537195687947/aTrdW505Bnuspk_u2g_NuD0iyWMCD9YBtNiXdFSJuMnpOTUuGoOADMtaWH17Q7nLYq3j"],
+                afk: ["POST", "https://discord.com/api/webhooks/1321056693446115360/tZN31FQp5YJAGq_0HltIom-gy7JUZHr9_em9ReJieSBs5l_vSMTc3nBQAddxCp97qjGP"],
+                craft: ["POST", "https://discord.com/api/webhooks/1323686599468253238/q11ZX2qQQ1qKB1kTA0Dk9DlfD6HT74D0CL3nqOQhc3bIS9ODTUrtVssd_ggp561eiNCK"],
+                logs: ["POST", "https://discord.com/api/webhooks/1321726592271122483/cVRVESgrvE8sc8b7gyRfQTvfrn0dvpSYNktlQBYMMYsLO5sYVgrE0JCjgOO6LF8lE3cY"]
+            }
 
             const __sk__ = new class {
                 __apiRequest(api, data) {
