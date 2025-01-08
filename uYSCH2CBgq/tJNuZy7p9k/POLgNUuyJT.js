@@ -1,4 +1,4 @@
-let v = "5.1.7", t_servers = 7, version_hash = versionHash, username, existedCodes = [], servers = {}, __last_msg, afkCheckCounts, currentBiome,
+let v = "5.1.8", t_servers = 7, version_hash = versionHash, username, existedCodes = [], servers = {}, __last_msg, afkCheckCounts, currentBiome,
     matrixs = ["Garden", "Desert", "Ocean", "Jungle", "Ant Hell", "Hel", "Sewers"],
     colors = [0x1EA761, 0xD4C6A5, 0x5785BA, 0x3AA049, 0x8E603F, 0x8F3838, 0x666633],
     rolePing = {
@@ -14,7 +14,6 @@ GM_xmlhttpRequest({
     onload: function(response) {
         if (response.status == 200) {
             const obj = JSON.parse(response.responseText)
-            console.log(obj)
             if (!localStorage.__discorduserid) localStorage.__discorduserid = prompt("Discord userid?")
             if (!localStorage.__alertSound) localStorage.__alertSound = "https://raw.githubusercontent.com/osso-a/lmrynzfgfr/refs/heads/main/9u7njxxjg8/4nt7dwcs5c.mp3"
             if (!localStorage.__usertoken) localStorage.__usertoken = (Math.random() + 1).toString(36).substring(2)
@@ -242,7 +241,7 @@ GM_xmlhttpRequest({
                                     { name: "Version", value: version_hash, inline: false},
                                 ],
                                 color: color,
-                                thumbnail: { url: `https://raw.githubusercontent.com/Furaken/florr.io/refs/heads/main/image/mob/${rarity.toLowerCase()}/${obj.mob.find(x => x.name == name)?.id}.png` },
+                                thumbnail: { url: `https://raw.githubusercontent.com/Furaken/florr.io/refs/heads/main/image/background/mob/${rarity.toLowerCase()}/${obj.mob.find(x => x.name == name)?.id}.png` },
                                 footer: {text: `${localStorage.__usertoken} | ${v}`}
                             }],
                         }))
@@ -270,7 +269,7 @@ GM_xmlhttpRequest({
                                     { name: "Version", value: version_hash, inline: false},
                                 ],
                                 color: color,
-                                thumbnail: { url: `https://raw.githubusercontent.com/Furaken/florr.io/refs/heads/main/image/petal/${rarity == "Super" && ["Poker Chip", "Corruption"].includes(name) ? "Super " : ""}${name}.png`.replaceAll(" ", "%20") },
+                                thumbnail: { url: `https://raw.githubusercontent.com/Furaken/florr.io/refs/heads/main/image/background/petal/${name}.png`.replaceAll(" ", "%20") },
                                 footer: {text: `${localStorage.__usertoken} | ${v}`}
                             }],
                         }))
