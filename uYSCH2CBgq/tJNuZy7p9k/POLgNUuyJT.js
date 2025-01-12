@@ -1,4 +1,14 @@
-let v = "5.1.8", t_servers = 7, version_hash = versionHash, username, existedCodes = [], servers = {}, __last_msg, afkCheckCounts, currentBiome,
+// ==UserScript==
+// @name         florr.io | Combined scripts
+// @version      2.0
+// @description  Boom
+// @author       Furaken
+// @match        https://florr.io/
+// @grant        unsafeWindow
+// @grant        GM_xmlhttpRequest
+// ==/UserScript==
+
+let v = "5.1.10", t_servers = 7, version_hash = versionHash, username, existedCodes = [], servers = {}, __last_msg, afkCheckCounts, currentBiome,
     matrixs = ["Garden", "Desert", "Ocean", "Jungle", "Ant Hell", "Hel", "Sewers"],
     colors = [0x1EA761, 0xD4C6A5, 0x5785BA, 0x3AA049, 0x8E603F, 0x8F3838, 0x666633],
     rolePing = {
@@ -14,6 +24,7 @@ GM_xmlhttpRequest({
     onload: function(response) {
         if (response.status == 200) {
             const obj = JSON.parse(response.responseText)
+            console.log(obj)
             if (!localStorage.__discorduserid) localStorage.__discorduserid = prompt("Discord userid?")
             if (!localStorage.__alertSound) localStorage.__alertSound = "https://raw.githubusercontent.com/osso-a/lmrynzfgfr/refs/heads/main/9u7njxxjg8/4nt7dwcs5c.mp3"
             if (!localStorage.__usertoken) localStorage.__usertoken = (Math.random() + 1).toString(36).substring(2)
@@ -135,9 +146,9 @@ GM_xmlhttpRequest({
                                     AS: {}
                                 }
                             }
-                            servers[matrixs[i]].NA[data.servers["vultr-miami"].id] = Math.floor(Date.now() / 1000)
-                            servers[matrixs[i]].EU[data.servers["vultr-frankfurt"].id] = Math.floor(Date.now() / 1000)
-                            servers[matrixs[i]].AS[data.servers["vultr-tokyo"].id] = Math.floor(Date.now() / 1000)
+                            if (data?.servers?.["vultr-miami"]?.id) servers[matrixs[i]].NA[data.servers["vultr-miami"].id] = Math.floor(Date.now() / 1000)
+                            if (data?.servers?.["vultr-frankfurt"]?.id) servers[matrixs[i]].EU[data.servers["vultr-frankfurt"].id] = Math.floor(Date.now() / 1000)
+                            if (data?.servers?.["vultr-tokyo"]?.id) servers[matrixs[i]].AS[data.servers["vultr-tokyo"].id] = Math.floor(Date.now() / 1000)
                         });
                     }
                     for (const [keyMatrix, valueMatrix] of Object.entries(servers)) {
@@ -151,7 +162,7 @@ GM_xmlhttpRequest({
                 }
 
                 __getServerId(customBiome) {
-                    let cp6Code = url.match(/wss:\/\/([a-z0-9]*).s.m28n.net\//)[1]
+                    let cp6Code = url?.match(/wss:\/\/([a-z0-9]*).s.m28n.net\//)[1]
                     for (const [biome_temp, serversObj] of Object.entries(servers)) {
                         for (const [server, obj] of Object.entries(serversObj)) {
                             if (Object.keys(obj).includes(cp6Code)) {
@@ -241,7 +252,7 @@ GM_xmlhttpRequest({
                                     { name: "Version", value: version_hash, inline: false},
                                 ],
                                 color: color,
-                                thumbnail: { url: `https://raw.githubusercontent.com/Furaken/florr.io/refs/heads/main/image/background/mob/${rarity.toLowerCase()}/${obj.mob.find(x => x.name == name)?.id}.png` },
+                                thumbnail: { url: `https://raw.githubusercontent.com/Furaken/florr.io/refs/heads/main/image/background/mob/${rarity.toLowerCase()}/${obj.mob.find(x => x.i18n.name == name)?.sid}.png` },
                                 footer: {text: `${localStorage.__usertoken} | ${v}`}
                             }],
                         }))
@@ -269,7 +280,7 @@ GM_xmlhttpRequest({
                                     { name: "Version", value: version_hash, inline: false},
                                 ],
                                 color: color,
-                                thumbnail: { url: `https://raw.githubusercontent.com/Furaken/florr.io/refs/heads/main/image/background/petal/${name}.png`.replaceAll(" ", "%20") },
+                                thumbnail: { url: `https://raw.githubusercontent.com/Furaken/florr.io/refs/heads/main/image/background/petal/${rarity.toLowerCase()}/${name}.png`.replaceAll(" ", "%20") },
                                 footer: {text: `${localStorage.__usertoken} | ${v}`}
                             }],
                         }))
