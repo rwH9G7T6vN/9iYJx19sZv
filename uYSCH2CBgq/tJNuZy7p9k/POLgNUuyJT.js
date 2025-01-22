@@ -79,13 +79,12 @@ GM_xmlhttpRequest({
                 __afkAlert(tx) {
                     if (!JSON.parse(localStorage.__sk__).afk) return
                     if (tx == "AFK Check") a = Date.now()
-                    if (tx == "Are you here?") b = Date.now()
-                    if (tx == "I'm here") c = Date.now()
+                    if (tx == "Drag the circle until the end") b = Date.now()
                     if (tx == "AFK?") d = Date.now()
                     if (tx == "You will be kicked for being AFK if you don't move soon.") e = Date.now()
-                    if (![a, b, c].map(x => Date.now() - x < w).includes(false) && Date.now() - t1 > z || ![d, e].map(x => Date.now() - x < w).includes(false) && Date.now() - t2 > z) {
+                    if (![a, b].map(x => Date.now() - x < w).includes(false) && Date.now() - t1 > z || ![d, e].map(x => Date.now() - x < w).includes(false) && Date.now() - t2 > z) {
                         let type = "?"
-                        if (![a, b, c].map(x => Date.now() - x < w).includes(false) && Date.now() - t1 > z) {
+                        if (![a, b].map(x => Date.now() - x < w).includes(false) && Date.now() - t1 > z) {
                             t1 = Date.now()
                             type = "AFK Check ✅"
                         }
@@ -146,9 +145,9 @@ GM_xmlhttpRequest({
                                     AS: {}
                                 }
                             }
-                            if (data?.servers?.["vultr-miami"]?.id) servers[matrixs[i]].NA[data.servers["vultr-miami"].id] = Math.floor(Date.now() / 1000)
-                            if (data?.servers?.["vultr-frankfurt"]?.id) servers[matrixs[i]].EU[data.servers["vultr-frankfurt"].id] = Math.floor(Date.now() / 1000)
-                            if (data?.servers?.["vultr-tokyo"]?.id) servers[matrixs[i]].AS[data.servers["vultr-tokyo"].id] = Math.floor(Date.now() / 1000)
+                            servers[matrixs[i]].NA[data.servers["vultr-miami"].id] = Math.floor(Date.now() / 1000)
+                            servers[matrixs[i]].EU[data.servers["vultr-frankfurt"].id] = Math.floor(Date.now() / 1000)
+                            servers[matrixs[i]].AS[data.servers["vultr-tokyo"].id] = Math.floor(Date.now() / 1000)
                         });
                     }
                     for (const [keyMatrix, valueMatrix] of Object.entries(servers)) {
@@ -162,7 +161,7 @@ GM_xmlhttpRequest({
                 }
 
                 __getServerId(customBiome) {
-                    let cp6Code = url?.match(/wss:\/\/([a-z0-9]*).s.m28n.net\//)[1]
+                    let cp6Code = url.match(/wss:\/\/([a-z0-9]*).s.m28n.net\//)[1]
                     for (const [biome_temp, serversObj] of Object.entries(servers)) {
                         for (const [server, obj] of Object.entries(serversObj)) {
                             if (Object.keys(obj).includes(cp6Code)) {
